@@ -29,8 +29,6 @@ sai_status_t SwitchVpp::addNatEntry(
     sai_ip4_t dst_ip = 0;
     uint16_t l4_src_port = 0;
     uint16_t l4_dst_port = 0;
-    bool enable_packet_count = false;
-    bool enable_byte_count = false;
 
     for (uint32_t i = 0; i < attr_count; i++)
     {
@@ -50,12 +48,6 @@ sai_status_t SwitchVpp::addNatEntry(
                 break;
             case SAI_NAT_ENTRY_ATTR_L4_DST_PORT:
                 l4_dst_port = attr_list[i].value.u16;
-                break;
-            case SAI_NAT_ENTRY_ATTR_ENABLE_PACKET_COUNT:
-                enable_packet_count = attr_list[i].value.booldata;
-                break;
-            case SAI_NAT_ENTRY_ATTR_ENABLE_BYTE_COUNT:
-                enable_byte_count = attr_list[i].value.booldata;
                 break;
             default:
                 break;
