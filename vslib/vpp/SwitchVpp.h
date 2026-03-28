@@ -1003,6 +1003,21 @@ namespace saivs
 
             TunnelManagerSRv6 m_tunnel_mgr_srv6;
 
+            // ============= NAT =============
+
+            sai_status_t addNatEntry(
+                _In_ const std::string &serializedObjectId,
+                _In_ sai_object_id_t switch_id,
+                _In_ uint32_t attr_count,
+                _In_ const sai_attribute_t *attr_list);
+
+            sai_status_t removeNatEntry(
+                _In_ const std::string &serializedObjectId);
+
+            sai_status_t setNatEntryAttribute(
+                _In_ const std::string &serializedObjectId,
+                _In_ const sai_attribute_t *attr);
+
         protected: // switch capability related
             virtual sai_status_t queryNextHopGroupTypeCapability(
                 _Inout_ sai_s32_list_t *enum_values_capability) override;

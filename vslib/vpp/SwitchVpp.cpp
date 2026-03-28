@@ -866,6 +866,11 @@ sai_status_t SwitchVpp::create(
         return status;
     }
 
+    if (object_type == SAI_OBJECT_TYPE_NAT_ENTRY)
+    {
+        return addNatEntry(serializedObjectId, switch_id, attr_count, attr_list);
+    }
+
     if (object_type == SAI_OBJECT_TYPE_MY_SID_ENTRY)
     {
         sai_status_t status = m_tunnel_mgr_srv6.create_my_sid_entry(serializedObjectId, switch_id, attr_count, attr_list);
@@ -1163,6 +1168,11 @@ sai_status_t SwitchVpp::remove(
         return status;
     }
 
+    if (object_type == SAI_OBJECT_TYPE_NAT_ENTRY)
+    {
+        return removeNatEntry(serializedObjectId);
+    }
+
     if (object_type == SAI_OBJECT_TYPE_MY_SID_ENTRY)
     {
         sai_status_t status = m_tunnel_mgr_srv6.remove_my_sid_entry(serializedObjectId);
@@ -1433,6 +1443,11 @@ sai_status_t SwitchVpp::set(
     if (objectType == SAI_OBJECT_TYPE_ROUTE_ENTRY)
     {
         return updateIpRoute(serializedObjectId, attr);
+    }
+
+    if (objectType == SAI_OBJECT_TYPE_NAT_ENTRY)
+    {
+        return setNatEntryAttribute(serializedObjectId, attr);
     }
 
     if (objectType == SAI_OBJECT_TYPE_SWITCH)
