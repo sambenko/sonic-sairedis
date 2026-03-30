@@ -1464,6 +1464,12 @@ sai_status_t SwitchVpp::set(
                     m_tunnel_mgr.set_vxlan_port(attr);
                     break;
                 }
+            case SAI_SWITCH_ATTR_NAT_ENABLE:
+                {
+                    SWSS_LOG_NOTICE("NAT feature %s",
+                            attr->value.booldata ? "enabled" : "disabled");
+                    break;
+                }
         }
     }
 
