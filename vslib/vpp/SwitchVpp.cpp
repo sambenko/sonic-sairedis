@@ -1544,6 +1544,24 @@ sai_status_t SwitchVpp::get(
         return getAclEntryStats(object_id, attr_count, attr_list);
     }
 
+    if (objectType == SAI_OBJECT_TYPE_NAT_ENTRY)
+    {
+        // Return zero counters for NAT entry stats polling
+        for (uint32_t idx = 0; idx < attr_count; ++idx)
+        {
+            switch (attr_list[idx].id)
+            {
+                case SAI_NAT_ENTRY_ATTR_PACKET_COUNT:
+                case SAI_NAT_ENTRY_ATTR_BYTE_COUNT:
+                    attr_list[idx].value.u64 = 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return SAI_STATUS_SUCCESS;
+    }
+
     const auto &objectHash = m_objectHash.at(objectType);
 
     auto it = objectHash.find(serializedObjectId);
